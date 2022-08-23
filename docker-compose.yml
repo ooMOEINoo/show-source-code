@@ -1,0 +1,38 @@
+version: '3.0'
+services:
+  talkent-app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - PORT=3000
+    depends_on:
+      - postgres
+      - cache
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=talkent
+    ports:
+          - '5438:5432'
+    volumes: 
+          - pg-data:/var/lib/postgresql/data
+    
+  cache:
+    image: redis
+    restart: always
+    ports:
+      - '6380:6379'
+    volumes:
+      - cache:/data
+
+    
+volumes:
+  pg-data:
+  cache:

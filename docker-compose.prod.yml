@@ -1,0 +1,9 @@
+version: '3.0'
+services:
+  talkent-app:
+    environment:
+      - NODE_ENV=production
+      - POSTGRES_HOST=postgres
+      - REDIS_HOST=cache
+      - REDIS_PORT=6379
+    command: npm start
